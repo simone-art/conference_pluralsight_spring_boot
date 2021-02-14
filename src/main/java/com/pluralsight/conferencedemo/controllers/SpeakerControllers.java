@@ -4,11 +4,9 @@ package com.pluralsight.conferencedemo.controllers;
 import com.pluralsight.conferencedemo.models.Session;
 import com.pluralsight.conferencedemo.models.Speaker;
 import com.pluralsight.conferencedemo.repository.SpeakerRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,5 +30,25 @@ public class SpeakerControllers {
     public Speaker get(@PathVariable Long id){
         return speakerRepository.getOne(id);
     }
+
+    @RequestMapping(value="{id}", method = RequestMethod.DELETE)
+    // Método para deletar pelo Id
+    public void delete(@PathVariable Long id){
+        //É preciso checar a existência desse id antes de deletar
+        speakerRepository.deleteById(id);
+    }
+
+    @RequestMapping(value="{id}", method = RequestMethod.PUT)
+    // Método para atualizar buscando pelo id
+    // existingSpeaker é uma variável  que valida antes a existência daquele id
+    // A função do BeanUtils é pegar os dados existente daquele id
+    //copyProperties = copia os dados da sessão que queremos atualizar
+    //SaveAndFlush = salve, vacia e atualiza novamente o dado que estamos atualizando
+    public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker){
+        Speaker existingSpeaker = speakerRepository.getOne(id);
+        BeanUtils.copyProperties(speaker, existingSpeaker, "speaker_id");
+        return speakerRepository.saveAndFlush(existingSpeaker);
+    }
+
 
 }
