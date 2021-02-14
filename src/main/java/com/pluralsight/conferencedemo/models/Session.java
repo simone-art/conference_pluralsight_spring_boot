@@ -19,6 +19,7 @@ public class Session {
 
     //JPA relationship
     @ManyToMany
+    //@Jointable juntas  as colunas de tabelas diferentes
     @JoinTable(
             name = "session_speakers",
             joinColumns = @JoinColumn(name= "session_id"),
