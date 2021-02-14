@@ -1,5 +1,7 @@
 package com.pluralsight.conferencedemo.models;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,12 +18,24 @@ public class Speaker {
     private String company;
     private String speaker_bio;
 
-
+    //Criado atributo pra armazenar photos
+    //Em java tem que ser uado o byte porque uma foto é um código binário
+    @Lob //Esta anotação ajuda o JPA no tratamento de dados grandes como imagem, video, etc
+    @Type(type="org.hibernate.type.BinaryType") //Ajuda o hibernate a tratar dados binários
+    private byte[] speaker_photo;
 
     @ManyToMany(mappedBy = "speakers")
     private List<Session> sessions;
 
     public Speaker() {
+    }
+
+    public byte[] getSpeaker_photo() {
+        return speaker_photo;
+    }
+
+    public void setSpeaker_photo(byte[] speaker_photo) {
+        this.speaker_photo = speaker_photo;
     }
 
     public List<Session> getSessions() {
