@@ -32,9 +32,11 @@ public class SpeakerControllers {
 
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)
     // Método para deletar pelo Id
-    public void delete(@PathVariable Long id){
+    public String delete(@PathVariable Long id){
         //É preciso checar a existência desse id antes de deletar
         speakerRepository.deleteById(id);
+        System.out.println("Deletado com sucesso");
+        return "Deletado com sucesso";
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.PUT)
