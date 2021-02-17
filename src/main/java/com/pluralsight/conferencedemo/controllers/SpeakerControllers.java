@@ -1,7 +1,6 @@
 package com.pluralsight.conferencedemo.controllers;
 
 
-import com.pluralsight.conferencedemo.models.Session;
 import com.pluralsight.conferencedemo.models.Speaker;
 import com.pluralsight.conferencedemo.repository.SpeakerRepository;
 import org.springframework.beans.BeanUtils;
@@ -45,7 +44,7 @@ public class SpeakerControllers {
     //copyProperties = copia os dados da sessão que queremos atualizar
     //SaveAndFlush = salve, vacia e atualiza novamente o dado que estamos atualizando
     public Speaker update(@PathVariable Long id, @RequestBody Speaker speaker){
-        Speaker existingSpeaker = speakerRepository.getOne(id);
+        Speaker existingSpeaker = speakerRepository.findById(id).get();
         BeanUtils.copyProperties(speaker, existingSpeaker, "speaker_id");
         return speakerRepository.saveAndFlush(existingSpeaker);
     }

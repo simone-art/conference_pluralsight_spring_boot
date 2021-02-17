@@ -56,7 +56,7 @@ public class SessionControllers {
     //copyProperties = copia os dados da sessão que queremos atualizar
     //SaveAndFlush = salve, vacia e atualiza novamente o dado
     public Session update(@PathVariable Long id, @RequestBody Session session){
-        Session existingSession = sessionRepository.getOne(id);
+        Session existingSession = sessionRepository.findById(id).get();
         BeanUtils.copyProperties(session, existingSession, "session_id");
         return sessionRepository.saveAndFlush(existingSession);
     }
