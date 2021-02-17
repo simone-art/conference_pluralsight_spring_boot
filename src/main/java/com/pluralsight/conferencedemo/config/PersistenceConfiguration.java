@@ -2,6 +2,7 @@ package com.pluralsight.conferencedemo.config;
 
 //Clase que funciona para cria ou configurar modificações na database
 
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;

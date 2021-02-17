@@ -10,9 +10,9 @@ import java.util.List;
 public class Session {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long session_id;
+
     private String session_name;
     private String session_description;
     private String session_length;
