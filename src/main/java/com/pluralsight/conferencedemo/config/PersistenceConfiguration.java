@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -46,9 +47,11 @@ public class PersistenceConfiguration {
 
     @Bean
     @Autowired
-    public HibernateTransactionManager transactionManager(final SessionFactory sessionFactory){
-        final HibernateTransactionManager txManager = new HibernateTransactionManager();
-        txManager.setSessionFactory(sessionFactory);
+    //Deletado o hibernate porque está dando erro e incluido o JpaTransactionManager
+    //Com o JPA rodou com sucesso e consegui ver a api na tela
+    public JpaTransactionManager transactionManager(final SessionFactory sessionFactory){
+        final JpaTransactionManager txManager = new JpaTransactionManager();
+        txManager.setEntityManagerFactory(sessionFactory);
         return txManager;
     }
 
