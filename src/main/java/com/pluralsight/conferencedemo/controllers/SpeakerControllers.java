@@ -28,7 +28,7 @@ public class SpeakerControllers {
     @RequestMapping("{id}")
     //Método que busca um conferencista pelo Id
     public Speaker get(@PathVariable Long id){
-        return speakerRepository.getOne(id);
+        return speakerRepository.findById(id).get();
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.DELETE)

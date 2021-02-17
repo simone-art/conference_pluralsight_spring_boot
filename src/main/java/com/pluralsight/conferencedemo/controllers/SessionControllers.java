@@ -4,8 +4,9 @@ import com.pluralsight.conferencedemo.models.Session;
 import com.pluralsight.conferencedemo.repository.SessionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import java.util.List;
 
@@ -18,18 +19,18 @@ public class SessionControllers {
     private SessionRepository sessionRepository;
 
 
-    @GetMapping
-    //Método que lista todas as sessões
+
+    @GetMapping//Método que lista todas as sessões
     public List<Session> list(){
         return sessionRepository.findAll();
 
     }
 
     @GetMapping
-    @RequestMapping("{id}")
+    @RequestMapping("/{id}")
     //Método que busca uma sessão pelo Id
     public Session get(@PathVariable Long id){
-        return sessionRepository.getOne(id);
+        return sessionRepository.findById(id).get();
     }
 
 
@@ -45,6 +46,7 @@ public class SessionControllers {
     public void delete(@PathVariable Long id){
         //É preciso checar a existência desse id antes de deletar
         sessionRepository.deleteById(id);
+        System.out.println("Deletado com sucesso");
     }
 
     @RequestMapping(value="{id}", method = RequestMethod.PUT)
